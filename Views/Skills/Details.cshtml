@@ -1,0 +1,26 @@
+﻿@model portfoilo.Models.Skills
+
+@{
+    Layout = "adminLayout";
+    ViewData["Title"] = "Skill Details";
+}
+
+<h1 class="mb-4">Skill Details</h1>
+
+<div class="admin-card" style="max-width: 500px;">
+    <dl class="row mb-4">
+        <dt class="col-sm-4">Name</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Name)</dd>
+
+        <dt class="col-sm-4">Category</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Category)</dd>
+
+        <dt class="col-sm-4">Level</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Level) / 100</dd>
+    </dl>
+
+    <div class="d-flex gap-2">
+        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-teal">Edit</a>
+        <a asp-action="Index" class="btn btn-navy">Back to List</a>
+    </div>
+</div>

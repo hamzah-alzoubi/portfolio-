@@ -1,0 +1,336 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register — Hamzah</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --cream: #F2EDE4;
+            --teal: #2A9D8F;
+            --teal-dark: #21867a;
+            --navy: #1A2E44;
+            --navy-light: #223650;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        /* ── Left panel (form) ── */
+        .left-panel {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem;
+        }
+
+        .form-box {
+            width: 100%;
+            max-width: 420px;
+            animation: fadeUp 0.5s ease both;
+        }
+
+        @@keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: #7a8fa8;
+            font-size: 0.85rem;
+            text-decoration: none;
+            margin-bottom: 2rem;
+            transition: color 0.2s;
+        }
+
+            .back-link:hover {
+                color: var(--navy);
+            }
+
+        .form-title {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 2rem;
+            color: var(--navy);
+            margin-bottom: 0.4rem;
+        }
+
+        .form-subtitle {
+            color: #7a8fa8;
+            font-size: 0.92rem;
+            margin-bottom: 2rem;
+        }
+
+            .form-subtitle a {
+                color: var(--teal);
+                text-decoration: none;
+                font-weight: 500;
+            }
+
+        .field {
+            margin-bottom: 1.1rem;
+        }
+
+            .field label {
+                display: block;
+                font-family: 'Syne', sans-serif;
+                font-weight: 600;
+                font-size: 0.78rem;
+                text-transform: uppercase;
+                letter-spacing: 0.07em;
+                color: var(--navy);
+                margin-bottom: 0.4rem;
+            }
+
+            .field input {
+                width: 100%;
+                padding: 0.75rem 1rem;
+                border: 2px solid #ddd7cc;
+                border-radius: 12px;
+                font-family: 'DM Sans', sans-serif;
+                font-size: 0.95rem;
+                background: #fff;
+                color: var(--navy);
+                transition: border-color 0.2s, box-shadow 0.2s;
+                outline: none;
+            }
+
+                .field input:focus {
+                    border-color: var(--teal);
+                    box-shadow: 0 0 0 3px rgba(42,157,143,0.15);
+                }
+
+        .field-error {
+            color: #e05a5a;
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+        }
+
+        .validation-summary {
+            background: #fef0f0;
+            border: 1px solid #f5c6c6;
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1.25rem;
+            font-size: 0.85rem;
+            color: #c0392b;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 0.85rem;
+            background: var(--teal);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+            margin-top: 0.75rem;
+        }
+
+            .btn-submit:hover {
+                background: var(--teal-dark);
+                transform: translateY(-1px);
+            }
+
+        /* ── Right panel (decorative) ── */
+        .right-panel {
+            background: var(--navy);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .right-panel::before {
+                content: '';
+                position: absolute;
+                width: 600px;
+                height: 600px;
+                border-radius: 50%;
+                background: radial-gradient(circle, rgba(42,157,143,0.2) 0%, transparent 65%);
+                bottom: -200px;
+                right: -200px;
+                pointer-events: none;
+            }
+
+            .right-panel::after {
+                content: '';
+                position: absolute;
+                width: 250px;
+                height: 250px;
+                border-radius: 50%;
+                background: radial-gradient(circle, rgba(42,157,143,0.12) 0%, transparent 70%);
+                top: 80px;
+                left: 60px;
+                pointer-events: none;
+            }
+
+        .right-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .right-label {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--teal);
+            margin-bottom: 1.5rem;
+        }
+
+        .right-headline {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 2.8rem;
+            line-height: 1.1;
+            color: var(--cream);
+            margin-bottom: 3rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.1rem;
+        }
+
+            .feature-list li {
+                display: flex;
+                align-items: flex-start;
+                gap: 0.9rem;
+                color: #a8bfd8;
+                font-size: 0.92rem;
+                line-height: 1.5;
+            }
+
+        .feature-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(42,157,143,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+        }
+
+        @@media (max-width: 768px) {
+            body {
+                grid-template-columns: 1fr;
+            }
+
+            .right-panel {
+                display: none;
+            }
+
+            .left-panel {
+                padding: 2.5rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Left (form) -->
+    <div class="left-panel">
+        <div class="form-box">
+            <a asp-controller="Home" asp-action="Index" class="back-link">← Back to Portfolio</a>
+
+            <h2 class="form-title">Create account</h2>
+            <p class="form-subtitle">
+                Already have an account? <a asp-page="./Login">Sign in</a>
+            </p>
+
+            <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+
+                <div class="field">
+                    <label asp-for="Input.Email">Email</label>
+                    <input asp-for="Input.Email" autocomplete="username" placeholder="you@example.com" />
+                    <span asp-validation-for="Input.Email" class="field-error"></span>
+                </div>
+
+                <div class="field">
+                    <label asp-for="Input.Password">Password</label>
+                    <input asp-for="Input.Password" autocomplete="new-password" placeholder="••••••••" />
+                    <span asp-validation-for="Input.Password" class="field-error"></span>
+                </div>
+
+                <div class="field">
+                    <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                    <input asp-for="Input.ConfirmPassword" autocomplete="new-password" placeholder="••••••••" />
+                    <span asp-validation-for="Input.ConfirmPassword" class="field-error"></span>
+                </div>
+
+                <button type="submit" class="btn-submit">Create Account →</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Right (decorative) -->
+    <div class="right-panel">
+        <div class="right-content">
+            <div class="right-label">Admin Panel Access</div>
+            <h2 class="right-headline">Manage your<br />portfolio<br />with ease.</h2>
+
+            <ul class="feature-list">
+                <li>
+                    <div class="feature-icon">📁</div>
+                    <span>Add, edit, and delete projects directly from the dashboard</span>
+                </li>
+                <li>
+                    <div class="feature-icon">📊</div>
+                    <span>Track and update your skills with visual progress bars</span>
+                </li>
+                <li>
+                    <div class="feature-icon">✉️</div>
+                    <span>Read messages sent through your contact form in real time</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+</body>
+</html>

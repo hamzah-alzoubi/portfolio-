@@ -1,0 +1,178 @@
+﻿@page
+@model LogoutModel
+@{
+    ViewData["Title"] = "Logged Out";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Logged Out — Hamzah</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --cream: #F2EDE4;
+            --teal: #2A9D8F;
+            --teal-dark: #21867a;
+            --navy: #1A2E44;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--navy);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+            body::before {
+                content: '';
+                position: absolute;
+                width: 600px;
+                height: 600px;
+                border-radius: 50%;
+                background: radial-gradient(circle, rgba(42,157,143,0.15) 0%, transparent 70%);
+                top: -150px;
+                left: -150px;
+                pointer-events: none;
+            }
+
+            body::after {
+                content: '';
+                position: absolute;
+                width: 400px;
+                height: 400px;
+                border-radius: 50%;
+                background: radial-gradient(circle, rgba(42,157,143,0.1) 0%, transparent 70%);
+                bottom: -100px;
+                right: -100px;
+                pointer-events: none;
+            }
+
+        .card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 24px;
+            padding: 3.5rem;
+            text-align: center;
+            max-width: 420px;
+            width: 90%;
+            position: relative;
+            z-index: 1;
+            animation: fadeUp 0.5s ease both;
+        }
+
+        @@keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: rgba(42,157,143,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.75rem;
+            font-size: 1.8rem;
+        }
+
+        .brand {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1rem;
+            color: var(--teal);
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 2rem;
+            color: var(--cream);
+            margin-bottom: 0.75rem;
+        }
+
+        p {
+            color: #6b8aaa;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+        }
+
+        .btn-primary {
+            display: block;
+            width: 100%;
+            padding: 0.85rem;
+            background: var(--teal);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            margin-bottom: 0.85rem;
+            transition: background 0.2s, transform 0.15s;
+        }
+
+            .btn-primary:hover {
+                background: var(--teal-dark);
+                transform: translateY(-1px);
+            }
+
+        .btn-secondary {
+            display: block;
+            width: 100%;
+            padding: 0.85rem;
+            background: transparent;
+            color: #6b8aaa;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            font-family: 'Syne', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+            .btn-secondary:hover {
+                color: var(--cream);
+                border-color: rgba(255,255,255,0.25);
+            }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="icon">👋</div>
+        <div class="brand">HAMZAH.</div>
+        <h1>See you soon.</h1>
+        <p>You've been signed out successfully. Come back anytime to manage your portfolio.</p>
+
+        <a asp-area="Identity" asp-page="/Account/Login" class="btn-primary">Sign back in →</a>
+        <a asp-controller="Home" asp-action="Index" class="btn-secondary">Back to Portfolio</a>
+    </div>
+</body>
+</html>

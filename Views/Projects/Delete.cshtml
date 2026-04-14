@@ -1,0 +1,55 @@
+﻿@model portfoilo.Models.Projects
+
+@{
+    Layout = "adminLayout";
+    ViewData["Title"] = "Delete Project";
+}
+
+<h1 class="mb-4">Delete Project</h1>
+
+<div class="admin-card" style="max-width: 600px;">
+    <p class="text-danger fw-semibold mb-3">Are you sure you want to delete this project? This cannot be undone.</p>
+
+    <dl class="row mb-4">
+        <dt class="col-sm-4">Title</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Title)</dd>
+
+        <dt class="col-sm-4">Description</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Description)</dd>
+
+        <dt class="col-sm-4">Tech Used</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.TechUsed)</dd>
+
+        <dt class="col-sm-4">GitHub Link</dt>
+        <dd class="col-sm-8">
+            @if (!string.IsNullOrEmpty(Model.GitHubLink))
+            {
+                <a href="@Model.GitHubLink" target="_blank">@Model.GitHubLink</a>
+            }
+            else
+            {
+                <span class="text-muted">—</span>
+            }
+        </dd>
+
+        <dt class="col-sm-4">Live Demo</dt>
+        <dd class="col-sm-8">
+            @if (!string.IsNullOrEmpty(Model.LiveDemoLink))
+            {
+                <a href="@Model.LiveDemoLink" target="_blank">@Model.LiveDemoLink</a>
+            }
+            else
+            {
+                <span class="text-muted">—</span>
+            }
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <div class="d-flex gap-2">
+            <input type="submit" value="Yes, Delete" class="btn btn-outline-danger" />
+            <a asp-action="Index" class="btn btn-navy">Cancel</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,789 @@
+﻿@{
+    ViewData["Title"] = "About";
+}
+
+<!-- ═══════════════════════════════════════
+     ABOUT PAGE — Portfolio
+     Sections: Hero · Bio · Timeline · Bootcamp · Currently Learning
+════════════════════════════════════════ -->
+
+<style>
+    /* ── Page base ── */
+    .about-page {
+        background: #F2EDE4;
+        color: #1A2E44;
+        overflow-x: hidden;
+    }
+
+    /* ══════════════════════════════
+           HERO
+        ══════════════════════════════ */
+    .about-hero {
+        min-height: 60vh;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 4rem;
+        padding: 8rem 8% 5rem;
+        position: relative;
+    }
+
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -80px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(42,157,143,0.12) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+    .about-hero-label {
+        font-family: 'Syne', sans-serif;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #2A9D8F;
+        margin-bottom: 1.2rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+    }
+
+        .about-hero-label::before {
+            content: '';
+            display: inline-block;
+            width: 28px;
+            height: 2px;
+            background: #2A9D8F;
+        }
+
+    .about-hero-title {
+        font-family: 'Syne', sans-serif;
+        font-size: clamp(2.8rem, 5vw, 4.5rem);
+        font-weight: 800;
+        line-height: 1.05;
+        color: #1A2E44;
+        margin-bottom: 1.5rem;
+    }
+
+        .about-hero-title span {
+            color: #2A9D8F;
+            position: relative;
+            display: inline-block;
+        }
+
+            /* Underline brush accent under the highlight word */
+            .about-hero-title span::after {
+                content: '';
+                position: absolute;
+                bottom: -4px;
+                left: 0;
+                width: 100%;
+                height: 6px;
+                background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12'%3E%3Cpath d='M2 8 Q50 2 100 7 Q150 12 198 5' stroke='%232A9D8F' stroke-width='3.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") center/cover no-repeat;
+            }
+
+    .about-hero-bio {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #1A2E44cc;
+        max-width: 480px;
+    }
+
+    /* Right column — big decorative number + quick facts */
+    .about-hero-right {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2rem;
+        position: relative;
+    }
+
+    .about-deco-number {
+        font-family: 'Syne', sans-serif;
+        font-size: clamp(7rem, 14vw, 11rem);
+        font-weight: 800;
+        color: transparent;
+        -webkit-text-stroke: 2px rgba(42,157,143,0.2);
+        line-height: 1;
+        user-select: none;
+        position: absolute;
+        top: -2rem;
+        right: 0;
+        z-index: 0;
+    }
+
+    .quick-facts {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        position: relative;
+        z-index: 1;
+        width: 100%;
+    }
+
+    .quick-fact {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem 1.4rem;
+        background: white;
+        border-radius: 14px;
+        border: 1px solid rgba(42,157,143,0.15);
+        box-shadow: 0 2px 12px rgba(26,46,68,0.05);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+        .quick-fact:hover {
+            transform: translateX(6px);
+            box-shadow: 0 6px 20px rgba(42,157,143,0.12);
+        }
+
+    .quick-fact-icon {
+        font-size: 1.4rem;
+        width: 42px;
+        height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(42,157,143,0.1);
+        border-radius: 10px;
+        flex-shrink: 0;
+    }
+
+    .quick-fact-text {
+        font-family: 'DM Sans', sans-serif;
+    }
+
+        .quick-fact-text strong {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #1A2E44;
+        }
+
+        .quick-fact-text span {
+            font-size: 0.8rem;
+            color: #1A2E44aa;
+        }
+
+    /* ══════════════════════════════
+           JOURNEY TIMELINE
+        ══════════════════════════════ */
+    .about-timeline {
+        padding: 5rem 8%;
+        position: relative;
+    }
+
+    .section-header {
+        margin-bottom: 3.5rem;
+    }
+
+    .section-label {
+        font-family: 'Syne', sans-serif;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #2A9D8F;
+        margin-bottom: 0.6rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+    }
+
+        .section-label::before {
+            content: '';
+            display: inline-block;
+            width: 22px;
+            height: 2px;
+            background: #2A9D8F;
+        }
+
+    .section-title {
+        font-family: 'Syne', sans-serif;
+        font-size: clamp(1.8rem, 3vw, 2.6rem);
+        font-weight: 800;
+        color: #1A2E44;
+    }
+
+    /* Timeline layout */
+    .timeline {
+        position: relative;
+        max-width: 780px;
+    }
+
+        /* Vertical line */
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 18px;
+            top: 8px;
+            bottom: 8px;
+            width: 2px;
+            background: linear-gradient(to bottom, #2A9D8F, rgba(42,157,143,0.1));
+        }
+
+    .timeline-item {
+        display: grid;
+        grid-template-columns: 40px 1fr;
+        gap: 1.6rem;
+        margin-bottom: 2.8rem;
+        position: relative;
+    }
+
+    .timeline-dot {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: white;
+        border: 2.5px solid #2A9D8F;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        flex-shrink: 0;
+        position: relative;
+        z-index: 1;
+        box-shadow: 0 0 0 6px rgba(42,157,143,0.08);
+        transition: box-shadow 0.3s;
+    }
+
+    .timeline-item:hover .timeline-dot {
+        box-shadow: 0 0 0 10px rgba(42,157,143,0.12);
+    }
+
+    .timeline-content {
+        background: white;
+        border-radius: 16px;
+        padding: 1.4rem 1.8rem;
+        border: 1px solid rgba(26,46,68,0.07);
+        box-shadow: 0 2px 14px rgba(26,46,68,0.05);
+        transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .timeline-item:hover .timeline-content {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px rgba(26,46,68,0.09);
+    }
+
+    .timeline-year {
+        font-family: 'Syne', sans-serif;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        color: #2A9D8F;
+        text-transform: uppercase;
+        margin-bottom: 0.3rem;
+    }
+
+    .timeline-heading {
+        font-family: 'Syne', sans-serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #1A2E44;
+        margin-bottom: 0.4rem;
+    }
+
+    .timeline-desc {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.92rem;
+        color: #1A2E44bb;
+        line-height: 1.7;
+        margin: 0;
+    }
+
+    /* ══════════════════════════════
+           BOOTCAMP HIGHLIGHT
+        ══════════════════════════════ */
+    .about-bootcamp {
+        padding: 2rem 8% 5rem;
+    }
+
+    .bootcamp-card {
+        background: #1A2E44;
+        border-radius: 24px;
+        padding: 3.5rem 4rem;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: 3rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+        /* Decorative teal blob inside card */
+        .bootcamp-card::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(42,157,143,0.25) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .bootcamp-card::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            left: 30%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(42,157,143,0.12) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+    .bootcamp-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(42,157,143,0.2);
+        color: #2A9D8F;
+        font-family: 'Syne', sans-serif;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        padding: 0.4rem 0.9rem;
+        border-radius: 20px;
+        margin-bottom: 1rem;
+        border: 1px solid rgba(42,157,143,0.3);
+    }
+
+    .bootcamp-title {
+        font-family: 'Syne', sans-serif;
+        font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+        font-weight: 800;
+        color: #F2EDE4;
+        margin-bottom: 1rem;
+        line-height: 1.2;
+    }
+
+    .bootcamp-desc {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.97rem;
+        color: rgba(242,237,228,0.7);
+        line-height: 1.75;
+        max-width: 520px;
+    }
+
+    .bootcamp-tech-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        margin-top: 1.6rem;
+    }
+
+    .bootcamp-tech {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.8rem;
+        font-weight: 600;
+        padding: 0.3rem 0.85rem;
+        border-radius: 20px;
+        background: rgba(242,237,228,0.08);
+        color: #F2EDE4cc;
+        border: 1px solid rgba(242,237,228,0.12);
+    }
+
+    .bootcamp-stat-col {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        position: relative;
+        z-index: 1;
+        flex-shrink: 0;
+    }
+
+    .bootcamp-stat {
+        text-align: center;
+        padding: 1.4rem 2rem;
+        background: rgba(42,157,143,0.15);
+        border-radius: 16px;
+        border: 1px solid rgba(42,157,143,0.25);
+    }
+
+    .bootcamp-stat-number {
+        font-family: 'Syne', sans-serif;
+        font-size: 2rem;
+        font-weight: 800;
+        color: #2A9D8F;
+        line-height: 1;
+        display: block;
+    }
+
+    .bootcamp-stat-label {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.78rem;
+        color: rgba(242,237,228,0.55);
+        margin-top: 0.3rem;
+        display: block;
+    }
+
+    /* ══════════════════════════════
+           CURRENTLY LEARNING
+        ══════════════════════════════ */
+    .about-learning {
+        padding: 3rem 8% 7rem;
+    }
+
+    .learning-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.2rem;
+        margin-top: 2.5rem;
+    }
+
+    .learning-card {
+        background: white;
+        border-radius: 16px;
+        padding: 1.5rem 1.6rem;
+        border: 1px solid rgba(42,157,143,0.12);
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        transition: transform 0.25s, box-shadow 0.25s;
+        box-shadow: 0 2px 10px rgba(26,46,68,0.04);
+    }
+
+        .learning-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 28px rgba(42,157,143,0.13);
+        }
+
+    .learning-icon {
+        font-size: 1.5rem;
+        width: 46px;
+        height: 46px;
+        background: rgba(42,157,143,0.1);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .learning-info strong {
+        font-family: 'Syne', sans-serif;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: #1A2E44;
+        display: block;
+        margin-bottom: 0.2rem;
+    }
+
+    .learning-info span {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.82rem;
+        color: #1A2E44aa;
+        line-height: 1.5;
+    }
+
+    /* Pulse indicator dot */
+    .learning-pulse {
+        width: 8px;
+        height: 8px;
+        background: #2A9D8F;
+        border-radius: 50%;
+        flex-shrink: 0;
+        margin-top: 4px;
+        animation: pulse-ring 1.8s ease-out infinite;
+    }
+
+    @@keyframes pulse-ring {
+        0% {
+            box-shadow: 0 0 0 0 rgba(42,157,143,0.5);
+        }
+
+        70% {
+            box-shadow: 0 0 0 8px rgba(42,157,143,0);
+        }
+
+        100% {
+            box-shadow: 0 0 0 0 rgba(42,157,143,0);
+        }
+    }
+
+    /* ══════════════════════════════
+           FADE-UP ANIMATIONS
+        ══════════════════════════════ */
+    .fade-up {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    /* Staggered delays */
+    .delay-1 {
+        transition-delay: 0.1s;
+    }
+
+    .delay-2 {
+        transition-delay: 0.2s;
+    }
+
+    .delay-3 {
+        transition-delay: 0.3s;
+    }
+
+    .delay-4 {
+        transition-delay: 0.4s;
+    }
+
+    .delay-5 {
+        transition-delay: 0.5s;
+    }
+
+    /* ══════════════════════════════
+           RESPONSIVE
+        ══════════════════════════════ */
+    @@media (max-width: 900px) {
+        .about-hero {
+            grid-template-columns: 1fr;
+            padding: 6rem 6% 4rem;
+            min-height: auto;
+        }
+
+        .about-deco-number {
+            display: none;
+        }
+
+        .bootcamp-card {
+            grid-template-columns: 1fr;
+            padding: 2.5rem 2rem;
+        }
+
+        .bootcamp-stat-col {
+            flex-direction: row;
+            justify-content: center;
+        }
+    }
+
+    @@media (max-width: 600px) {
+        .about-timeline,
+        .about-bootcamp,
+        .about-learning {
+            padding-left: 5%;
+            padding-right: 5%;
+        }
+
+        .bootcamp-stat-col {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+</style>
+
+<div class="about-page">
+
+    <!-- ── HERO ────────────────────────── -->
+    <section class="about-hero">
+        <div class="about-hero-left fade-up">
+            <p class="about-hero-label">About Me</p>
+            <h1 class="about-hero-title">
+                A Developer Who<br>Loves <span>Building Things</span>
+            </h1>
+            <p class="about-hero-bio">
+                I'm a full-stack developer passionate about turning ideas into clean, functional,
+                and beautifully designed digital products. From mobile apps to web platforms,
+                I focus on writing code that solves real problems — and looks great doing it.
+            </p>
+        </div>
+
+        <div class="about-hero-right fade-up delay-2">
+            <span class="about-deco-number">01</span>
+            <div class="quick-facts">
+                <div class="quick-fact">
+                    <div class="quick-fact-icon">📍</div>
+                    <div class="quick-fact-text">
+                        <strong>Based in Jordan</strong>
+                        <span>Available for remote work</span>
+                    </div>
+                </div>
+                <div class="quick-fact">
+                    <div class="quick-fact-icon">💼</div>
+                    <div class="quick-fact-text">
+                        <strong>Full-Stack Developer</strong>
+                        <span>Flutter · .NET · ASP.NET Core MVC</span>
+                    </div>
+                </div>
+                <div class="quick-fact">
+                    <div class="quick-fact-icon">🎯</div>
+                    <div class="quick-fact-text">
+                        <strong>Open to Opportunities</strong>
+                        <span>Junior & mid-level roles</span>
+                    </div>
+                </div>
+                <div class="quick-fact">
+                    <div class="quick-fact-icon">🌐</div>
+                    <div class="quick-fact-text">
+                        <strong>Languages</strong>
+                        <span>Arabic (native) · English (professional)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── TIMELINE ────────────────────── -->
+    <section class="about-timeline">
+        <div class="section-header fade-up">
+            <p class="section-label">My Story</p>
+            <h2 class="section-title">The Journey So Far</h2>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item fade-up delay-1">
+                <div class="timeline-dot">🌱</div>
+                <div class="timeline-content">
+                    <p class="timeline-year">The Beginning</p>
+                    <h3 class="timeline-heading">Discovered a Love for Code</h3>
+                    <p class="timeline-desc">
+                        Started exploring programming out of curiosity — tinkering with small projects
+                        and realizing this was something I genuinely wanted to pursue seriously.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item fade-up delay-2">
+                <div class="timeline-dot">📱</div>
+                <div class="timeline-content">
+                    <p class="timeline-year">Mobile Development</p>
+                    <h3 class="timeline-heading">Dove into Flutter</h3>
+                    <p class="timeline-desc">
+                        Built cross-platform mobile apps with Flutter, learning UI/UX principles,
+                        state management, and how to ship polished products users actually enjoy.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item fade-up delay-3">
+                <div class="timeline-dot">🎓</div>
+                <div class="timeline-content">
+                    <p class="timeline-year">Bootcamp</p>
+                    <h3 class="timeline-heading">Levelled Up at a Full-Stack Bootcamp</h3>
+                    <p class="timeline-desc">
+                        Completed an intensive bootcamp covering Flutter, .NET API, and UI/UX design —
+                        pushing my skills across the full stack and solidifying real-world best practices.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item fade-up delay-4">
+                <div class="timeline-dot">🚀</div>
+                <div class="timeline-content">
+                    <p class="timeline-year">Now</p>
+                    <h3 class="timeline-heading">Building, Shipping, Growing</h3>
+                    <p class="timeline-desc">
+                        Currently deepening my ASP.NET Core MVC expertise while building this portfolio —
+                        and actively looking for a team to grow with.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── BOOTCAMP CARD ───────────────── -->
+    <section class="about-bootcamp fade-up">
+        <div class="bootcamp-card">
+            <div>
+                <span class="bootcamp-badge">🎓 Education Highlight</span>
+                <h2 class="bootcamp-title">Full-Stack Development Bootcamp</h2>
+                <p class="bootcamp-desc">
+                    An intensive, hands-on program that covered everything from mobile development
+                    with Flutter to building REST APIs with .NET and designing intuitive interfaces
+                    with UI/UX principles. Real projects. Real feedback. Real growth.
+                </p>
+                <div class="bootcamp-tech-list">
+                    <span class="bootcamp-tech">Flutter</span>
+                    <span class="bootcamp-tech">.NET API</span>
+                    <span class="bootcamp-tech">UI/UX Design</span>
+                    <span class="bootcamp-tech">ASP.NET Core</span>
+                    <span class="bootcamp-tech">SQL Server</span>
+                    <span class="bootcamp-tech">REST APIs</span>
+                </div>
+            </div>
+            <div class="bootcamp-stat-col">
+                <div class="bootcamp-stat">
+                    <span class="bootcamp-stat-number">3+</span>
+                    <span class="bootcamp-stat-label">Tracks Covered</span>
+                </div>
+                <div class="bootcamp-stat">
+                    <span class="bootcamp-stat-number">✓</span>
+                    <span class="bootcamp-stat-label">Certified</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CURRENTLY LEARNING ──────────── -->
+    <section class="about-learning">
+        <div class="section-header fade-up">
+            <p class="section-label">What's Next</p>
+            <h2 class="section-title">Currently Learning</h2>
+        </div>
+
+        <div class="learning-grid">
+            <div class="learning-card fade-up delay-1">
+                <div class="learning-icon">⚙️</div>
+                <div class="learning-info">
+                    <strong>ASP.NET Core MVC</strong>
+                    <span>Deep-diving into MVC patterns, middleware, and Razor views</span>
+                </div>
+                <div class="learning-pulse"></div>
+            </div>
+            <div class="learning-card fade-up delay-2">
+                <div class="learning-icon">🗄️</div>
+                <div class="learning-info">
+                    <strong>Entity Framework Core</strong>
+                    <span>Advanced queries, migrations, and relational data modeling</span>
+                </div>
+                <div class="learning-pulse"></div>
+            </div>
+            <div class="learning-card fade-up delay-3">
+                <div class="learning-icon">☁️</div>
+                <div class="learning-info">
+                    <strong>Cloud Deployment</strong>
+                    <span>Exploring Azure App Service and CI/CD pipelines</span>
+                </div>
+                <div class="learning-pulse"></div>
+            </div>
+            <div class="learning-card fade-up delay-4">
+                <div class="learning-icon">🎨</div>
+                <div class="learning-info">
+                    <strong>UI/UX Craft</strong>
+                    <span>Sharpening design sensibility and responsive layout skills</span>
+                </div>
+                <div class="learning-pulse"></div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<!-- ── Fade-up scroll observer ──────────────────── -->
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                observer.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>

@@ -1,0 +1,116 @@
+﻿@using Microsoft.EntityFrameworkCore
+@using portfoilo.Models
+@inject portfoilo.Data.ApplicationDbContext Db
+
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "adminLayout";
+
+    var projectCount = await Db.Projects.CountAsync();
+    var skillCount = await Db.Skills.CountAsync();
+    var messageCount = await Db.Messages.CountAsync();
+}
+
+<style>
+    .stat-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.25rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .stat-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 1.75rem 1.5rem;
+        box-shadow: 0 2px 12px rgba(26,46,68,0.07);
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        border-top: 4px solid var(--teal);
+        transition: transform 0.2s;
+    }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+        }
+
+    .stat-icon {
+        font-size: 1.6rem;
+        color: var(--teal);
+    }
+
+    .stat-value {
+        font-family: 'Syne', sans-serif;
+        font-size: 2.4rem;
+        font-weight: 800;
+        color: var(--navy);
+        line-height: 1;
+    }
+
+    .stat-label {
+        font-size: 0.82rem;
+        color: #7a8fa8;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        font-weight: 500;
+    }
+
+    .quick-actions {
+        background: #fff;
+        border-radius: 16px;
+        padding: 1.75rem;
+        box-shadow: 0 2px 12px rgba(26,46,68,0.07);
+    }
+
+        .quick-actions h6 {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: #7a8fa8;
+            margin-bottom: 1rem;
+        }
+
+    .action-btns {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+    }
+</style>
+
+<!-- Stats -->
+<div class="stat-grid">
+    <div class="stat-card">
+        <div class="stat-icon"><i class="bi bi-folder2-open"></i></div>
+        <div class="stat-value">@projectCount</div>
+        <div class="stat-label">Projects</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon"><i class="bi bi-bar-chart-line"></i></div>
+        <div class="stat-value">@skillCount</div>
+        <div class="stat-label">Skills</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon"><i class="bi bi-envelope"></i></div>
+        <div class="stat-value">@messageCount</div>
+        <div class="stat-label">Messages</div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="quick-actions">
+    <h6>Quick Actions</h6>
+    <div class="action-btns">
+        <a asp-controller="Projects" asp-action="Create" class="btn btn-teal">
+            <i class="bi bi-plus-lg me-1"></i> New Project
+        </a>
+        <a asp-controller="Skills" asp-action="Create" class="btn btn-teal">
+            <i class="bi bi-plus-lg me-1"></i> New Skill
+        </a>
+        <a asp-controller="Messages" asp-action="Index" class="btn btn-navy">
+            <i class="bi bi-envelope me-1"></i> View Messages
+        </a>
+    </div>
+</div>

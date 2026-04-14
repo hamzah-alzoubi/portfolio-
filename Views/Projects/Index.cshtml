@@ -1,0 +1,65 @@
+﻿@model IEnumerable<portfoilo.Models.Projects>
+
+@{
+    Layout = "adminLayout";
+    ViewData["Title"] = "Projects";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Projects</h1>
+    <a asp-action="Create" class="btn btn-teal">
+        <i class="bi bi-plus-lg me-1"></i> Add Project
+    </a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Tech Used</th>
+            <th>GitHub</th>
+            <th>Live Demo</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="font-weight:600;">@item.Title</td>
+                <td style="max-width:200px;font-size:0.88rem;color:#7a8fa8;">@item.TechUsed</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.GitHubLink))
+                    {
+                        <a href="@item.GitHubLink" target="_blank" style="color:var(--teal);">
+                            <i class="bi bi-github"></i> View
+                        </a>
+                    }
+                    else
+                    {
+
+                        <span class="text-muted">—</span>
+                    }
+                </td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.LiveDemoLink))
+                    {
+                        <a href="@item.LiveDemoLink" target="_blank" style="color:var(--teal);">
+                            <i class="bi bi-box-arrow-up-right"></i> View
+                        </a>
+                    }
+                    else
+                    {
+
+                        <span class="text-muted">—</span>
+                    }
+                </td>
+                <td class="table-actions">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-teal">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-navy">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

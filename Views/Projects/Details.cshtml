@@ -1,0 +1,50 @@
+﻿@model portfoilo.Models.Projects
+
+@{
+    Layout = "adminLayout";
+    ViewData["Title"] = "Project Details";
+}
+
+<h1 class="mb-4">Project Details</h1>
+
+<div class="admin-card" style="max-width: 600px;">
+    <dl class="row mb-4">
+        <dt class="col-sm-4">Title</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Title)</dd>
+
+        <dt class="col-sm-4">Description</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Description)</dd>
+
+        <dt class="col-sm-4">Tech Used</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.TechUsed)</dd>
+
+        <dt class="col-sm-4">GitHub Link</dt>
+        <dd class="col-sm-8">
+            @if (!string.IsNullOrEmpty(Model.GitHubLink))
+            {
+                <a href="@Model.GitHubLink" target="_blank">@Model.GitHubLink</a>
+            }
+            else
+            {
+                <span class="text-muted">—</span>
+            }
+        </dd>
+
+        <dt class="col-sm-4">Live Demo</dt>
+        <dd class="col-sm-8">
+            @if (!string.IsNullOrEmpty(Model.LiveDemoLink))
+            {
+                <a href="@Model.LiveDemoLink" target="_blank">@Model.LiveDemoLink</a>
+            }
+            else
+            {
+                <span class="text-muted">—</span>
+            }
+        </dd>
+    </dl>
+
+    <div class="d-flex gap-2">
+        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-teal">Edit</a>
+        <a asp-action="Index" class="btn btn-navy">Back to List</a>
+    </div>
+</div>

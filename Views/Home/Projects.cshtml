@@ -1,0 +1,326 @@
+﻿@model IEnumerable<portfoilo.Models.Projects>
+@using portfoilo.Models
+
+@{
+    ViewData["Title"] = "Projects";
+}
+
+<style>
+    .projects-page {
+        background: #F2EDE4;
+        min-height: 100vh;
+        padding-bottom: 80px;
+    }
+
+    /* ── Hero ── */
+    .projects-hero {
+        background: #1A2E44;
+        padding: 90px 0 70px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .projects-hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: #2A9D8F;
+            border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+            opacity: 0.08;
+            top: -120px;
+            right: -100px;
+        }
+
+        .projects-hero::after {
+            content: '';
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            background: #2A9D8F;
+            border-radius: 40% 60% 30% 70% / 60% 40% 60% 40%;
+            opacity: 0.06;
+            bottom: -80px;
+            left: -80px;
+        }
+
+        .projects-hero h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            color: #F2EDE4;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+            .projects-hero h1 span {
+                color: #2A9D8F;
+            }
+
+        .projects-hero p {
+            font-family: 'DM Sans', sans-serif;
+            color: rgba(242,237,228,0.7);
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin: 0 auto 28px;
+            position: relative;
+            z-index: 1;
+        }
+
+    .hero-count-badge {
+        display: inline-block;
+        background: rgba(42,157,143,0.2);
+        border: 1px solid rgba(42,157,143,0.4);
+        color: #2A9D8F;
+        font-family: 'Syne', sans-serif;
+        font-weight: 700;
+        font-size: 0.9rem;
+        padding: 6px 18px;
+        border-radius: 999px;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* ── Grid ── */
+    .projects-section {
+        padding: 70px 0 20px;
+    }
+
+    .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 28px;
+    }
+
+    /* ── Card ── */
+    .project-card {
+        background: #fff;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(26,46,68,0.07);
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+        .project-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 36px rgba(26,46,68,0.13);
+        }
+
+    .project-image-placeholder {
+        width: 100%;
+        height: 200px;
+        background: linear-gradient(135deg, #1A2E44 0%, #2A9D8F 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.8rem;
+    }
+
+    .project-body {
+        padding: 24px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .project-title {
+        font-family: 'Syne', sans-serif;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #1A2E44;
+        margin-bottom: 10px;
+    }
+
+    .project-description {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.95rem;
+        color: #555;
+        line-height: 1.65;
+        flex: 1;
+        margin-bottom: 16px;
+    }
+
+    .tech-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 20px;
+    }
+
+    .tech-tag {
+        background: rgba(42,157,143,0.1);
+        color: #2A9D8F;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.78rem;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(42,157,143,0.25);
+    }
+
+    .project-links {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .btn-github {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #1A2E44;
+        color: #F2EDE4;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.88rem;
+        font-weight: 600;
+        padding: 9px 18px;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: background 0.2s;
+    }
+
+        .btn-github:hover {
+            background: #243d59;
+            color: #F2EDE4;
+            text-decoration: none;
+        }
+
+    .btn-demo {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #2A9D8F;
+        color: #fff;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.88rem;
+        font-weight: 600;
+        padding: 9px 18px;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: background 0.2s;
+    }
+
+        .btn-demo:hover {
+            background: #238a7d;
+            color: #fff;
+            text-decoration: none;
+        }
+
+    /* ── Empty state ── */
+    .empty-state {
+        text-align: center;
+        padding: 80px 20px;
+        color: #888;
+        font-family: 'DM Sans', sans-serif;
+    }
+
+        .empty-state .empty-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+
+    @@media (max-width: 576px) {
+        .projects-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<!-- Hero -->
+<section class="projects-hero">
+    <div class="container">
+        <h1>My <span>Projects</span></h1>
+        <p>A collection of things I've built during and after the bootcamp.</p>
+        <span class="hero-count-badge">@Model.Count() Projects</span>
+    </div>
+</section>
+
+<!-- Projects Grid -->
+<section class="projects-section">
+    <div class="container">
+        @if (!Model.Any())
+        {
+            <div class="empty-state">
+                <div class="empty-icon">🗂️</div>
+                <p>No projects yet — check back soon!</p>
+            </div>
+        }
+        else
+        {
+            <div class="projects-grid">
+                @foreach (var project in Model)
+                {
+                    <div class="project-card">
+
+                        <div class="project-image-placeholder">🖥️</div>
+
+                        <div class="project-body">
+                            <div class="project-title">@project.Title</div>
+                            <div class="project-description">@project.Description</div>
+
+                            @if (!string.IsNullOrEmpty(project.TechUsed))
+                            {
+                                <div class="tech-tags">
+                                    @foreach (var tech in project.TechUsed.Split(','))
+                                    {
+                                        <span class="tech-tag">@tech.Trim()</span>
+                                    }
+                                </div>
+                            }
+
+                            <div class="project-links">
+                                @if (!string.IsNullOrEmpty(project.GitHubLink))
+                                {
+                                    <a href="@project.GitHubLink" target="_blank" class="btn-github">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+                                        </svg>
+                                        GitHub
+                                    </a>
+                                }
+                                @if (!string.IsNullOrEmpty(project.LiveDemoLink))
+                                {
+                                    <a href="@project.LiveDemoLink" target="_blank" class="btn-demo">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                            <polyline points="15 3 21 3 21 9" />
+                                            <line x1="10" y1="14" x2="21" y2="3" />
+                                        </svg>
+                                        Live Demo
+                                    </a>
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</section>
+
+<script>
+    const cards = document.querySelectorAll('.project-card');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => entry.target.classList.add('visible'), i * 100);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    cards.forEach(card => observer.observe(card));
+</script>

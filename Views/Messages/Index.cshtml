@@ -1,0 +1,35 @@
+﻿@model IEnumerable<portfoilo.Models.Message>
+
+@{
+    Layout = "adminLayout";
+    ViewData["Title"] = "Messages";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Message Inbox</h1>
+    <span class="badge" style="background:var(--teal);font-size:0.85rem;padding:0.5rem 1rem;border-radius:20px;">
+        @Model.Count() messages
+    </span>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Message</th>
+            <th>Received</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var msg in Model)
+        {
+            <tr>
+                <td>@msg.SenderName</td>
+                <td>@msg.EmailAddress</td>
+                <td style="max-width:400px;">@msg.Body</td>
+                <td style="white-space:nowrap;">@msg.ReceivedAt.ToString("dd MMM yyyy, HH:mm")</td>
+            </tr>
+        }
+    </tbody>
+</table>

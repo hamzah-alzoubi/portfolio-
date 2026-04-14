@@ -1,0 +1,401 @@
+﻿@page
+@model LoginModel
+@{
+    ViewData["Title"] = "Sign In";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In — Hamzah</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --cream: #F2EDE4;
+            --teal: #2A9D8F;
+            --teal-dark: #21867a;
+            --navy: #1A2E44;
+            --navy-light: #223650;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--navy);
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        /* ── Left panel ── */
+        .left-panel {
+            background: var(--navy);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .left-panel::before {
+                content: '';
+                position: absolute;
+                width: 500px;
+                height: 500px;
+                border-radius: 50%;
+                background: radial-gradient(circle, rgba(42,157,143,0.18) 0%, transparent 70%);
+                top: -100px;
+                left: -100px;
+                pointer-events: none;
+            }
+
+            .left-panel::after {
+                content: '';
+                position: absolute;
+                width: 300px;
+                height: 300px;
+                border-radius: 50%;
+                background: radial-gradient(circle, rgba(42,157,143,0.1) 0%, transparent 70%);
+                bottom: 50px;
+                right: -50px;
+                pointer-events: none;
+            }
+
+        .brand {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 2rem;
+            color: var(--cream);
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+            .brand span {
+                color: var(--teal);
+            }
+
+        .left-headline {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 3rem;
+            line-height: 1.1;
+            color: var(--cream);
+            margin-bottom: 1.25rem;
+            position: relative;
+            z-index: 1;
+        }
+
+            .left-headline em {
+                font-style: normal;
+                color: var(--teal);
+            }
+
+        .left-sub {
+            color: #6b8aaa;
+            font-size: 1rem;
+            line-height: 1.6;
+            max-width: 340px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .decorative-dots {
+            position: absolute;
+            bottom: 3rem;
+            left: 4rem;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+            z-index: 1;
+        }
+
+            .decorative-dots span {
+                width: 4px;
+                height: 4px;
+                border-radius: 50%;
+                background: rgba(42,157,143,0.3);
+                display: block;
+            }
+
+        /* ── Right panel ── */
+        .right-panel {
+            background: var(--cream);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem;
+            position: relative;
+        }
+
+        .form-box {
+            width: 100%;
+            max-width: 400px;
+            animation: fadeUp 0.5s ease both;
+        }
+
+        @@keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-title {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 2rem;
+            color: var(--navy);
+            margin-bottom: 0.4rem;
+        }
+
+        .form-subtitle {
+            color: #7a8fa8;
+            font-size: 0.92rem;
+            margin-bottom: 2.5rem;
+        }
+
+            .form-subtitle a {
+                color: var(--teal);
+                text-decoration: none;
+                font-weight: 500;
+            }
+
+        .field {
+            margin-bottom: 1.25rem;
+        }
+
+            .field label {
+                display: block;
+                font-family: 'Syne', sans-serif;
+                font-weight: 600;
+                font-size: 0.78rem;
+                text-transform: uppercase;
+                letter-spacing: 0.07em;
+                color: var(--navy);
+                margin-bottom: 0.45rem;
+            }
+
+            .field input {
+                width: 100%;
+                padding: 0.75rem 1rem;
+                border: 2px solid #ddd7cc;
+                border-radius: 12px;
+                font-family: 'DM Sans', sans-serif;
+                font-size: 0.95rem;
+                background: #fff;
+                color: var(--navy);
+                transition: border-color 0.2s, box-shadow 0.2s;
+                outline: none;
+            }
+
+                .field input:focus {
+                    border-color: var(--teal);
+                    box-shadow: 0 0 0 3px rgba(42,157,143,0.15);
+                }
+
+        .field-error {
+            color: #e05a5a;
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+        }
+
+        .validation-summary {
+            background: #fef0f0;
+            border: 1px solid #f5c6c6;
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1.25rem;
+            font-size: 0.85rem;
+            color: #c0392b;
+        }
+
+        .form-footer-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.75rem;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.88rem;
+            color: #7a8fa8;
+            cursor: pointer;
+        }
+
+            .checkbox-label input[type=checkbox] {
+                accent-color: var(--teal);
+                width: 15px;
+                height: 15px;
+            }
+
+        .forgot-link {
+            font-size: 0.88rem;
+            color: var(--teal);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+            .forgot-link:hover {
+                text-decoration: underline;
+            }
+
+        .btn-submit {
+            width: 100%;
+            padding: 0.85rem;
+            background: var(--navy);
+            color: var(--cream);
+            border: none;
+            border-radius: 12px;
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+            margin-bottom: 1rem;
+        }
+
+            .btn-submit:hover {
+                background: var(--navy-light);
+                transform: translateY(-1px);
+            }
+
+        .divider {
+            text-align: center;
+            font-size: 0.82rem;
+            color: #b0a898;
+            margin: 1rem 0;
+            position: relative;
+        }
+
+            .divider::before, .divider::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                width: 42%;
+                height: 1px;
+                background: #ddd7cc;
+            }
+
+            .divider::before {
+                left: 0;
+            }
+
+            .divider::after {
+                right: 0;
+            }
+
+        .btn-back {
+            width: 100%;
+            padding: 0.75rem;
+            background: transparent;
+            color: var(--navy);
+            border: 2px solid #ddd7cc;
+            border-radius: 12px;
+            font-family: 'Syne', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+            .btn-back:hover {
+                border-color: var(--teal);
+                color: var(--teal);
+            }
+
+        @@media (max-width: 768px) {
+            body {
+                grid-template-columns: 1fr;
+            }
+
+            .left-panel {
+                display: none;
+            }
+
+            .right-panel {
+                padding: 2.5rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Left -->
+    <div class="left-panel">
+        <div class="brand">Hamzah<span>.</span></div>
+        <h1 class="left-headline">Welcome<br /><em>back.</em></h1>
+        <p class="left-sub">Sign in to manage your projects, skills, and messages from the admin panel.</p>
+        <div class="decorative-dots">
+            @for (int i = 0; i < 24; i++)
+            {
+                <span></span>
+            }
+        </div>
+    </div>
+
+    <!-- Right -->
+    <div class="right-panel">
+        <div class="form-box">
+            <h2 class="form-title">Sign in</h2>
+            <p class="form-subtitle">
+                Don't have an account? <a asp-page="./Register">Register</a>
+            </p>
+
+            <form id="account" method="post">
+                <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+
+                <div class="field">
+                    <label asp-for="Input.Email">Email</label>
+                    <input asp-for="Input.Email" autocomplete="username" placeholder="you@example.com" />
+                    <span asp-validation-for="Input.Email" class="field-error"></span>
+                </div>
+
+                <div class="field">
+                    <label asp-for="Input.Password">Password</label>
+                    <input asp-for="Input.Password" autocomplete="current-password" placeholder="••••••••" />
+                    <span asp-validation-for="Input.Password" class="field-error"></span>
+                </div>
+
+                <div class="form-footer-row">
+                    <label class="checkbox-label">
+                        <input asp-for="Input.RememberMe" type="checkbox" />
+                        Remember me
+                    </label>
+                    <a asp-page="./ForgotPassword" class="forgot-link">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="btn-submit">Sign In →</button>
+            </form>
+
+            <div class="divider">or</div>
+            <a asp-controller="Home" asp-action="Index" class="btn-back">← Back to Portfolio</a>
+        </div>
+    </div>
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+</body>
+</html>

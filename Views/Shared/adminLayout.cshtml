@@ -1,0 +1,344 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] — Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
+
+    <style>
+        :root {
+            --cream: #F2EDE4;
+            --teal: #2A9D8F;
+            --teal-dark: #21867a;
+            --navy: #1A2E44;
+            --navy-light: #223650;
+            --navy-lighter: #2c4260;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            color: var(--navy);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ── Sidebar ── */
+        .admin-sidebar {
+            width: 260px;
+            min-height: 100vh;
+            background: var(--navy);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0; left: 0;
+            z-index: 100;
+        }
+
+        .sidebar-brand {
+            padding: 2rem 1.5rem 1.5rem;
+            border-bottom: 1px solid var(--navy-lighter);
+        }
+
+        .sidebar-brand .brand-label {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--cream);
+            letter-spacing: 0.02em;
+        }
+
+        .sidebar-brand .brand-sub {
+            font-size: 0.75rem;
+            color: var(--teal);
+            margin-top: 2px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 1.25rem 0.75rem;
+        }
+
+        .nav-section-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #6b8aaa;
+            padding: 0.75rem 0.75rem 0.4rem;
+        }
+
+        .sidebar-nav .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.65rem 0.85rem;
+            border-radius: 10px;
+            color: #a8bfd8;
+            font-size: 0.92rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            margin-bottom: 2px;
+        }
+
+        .sidebar-nav .nav-link i {
+            font-size: 1.05rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar-nav .nav-link:hover {
+            background: var(--navy-lighter);
+            color: var(--cream);
+        }
+
+        .sidebar-nav .nav-link.active {
+            background: var(--teal);
+            color: #fff;
+        }
+
+        .sidebar-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--navy-lighter);
+        }
+
+        .sidebar-footer a {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: #6b8aaa;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .sidebar-footer a:hover { color: var(--cream); }
+
+        /* ── Main ── */
+        .admin-main {
+            margin-left: 260px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .admin-topbar {
+            background: #fff;
+            border-bottom: 1px solid #e8e2d8;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .admin-topbar .page-title {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--navy);
+        }
+
+        .admin-topbar .topbar-user {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.88rem;
+            color: #6b8aaa;
+        }
+
+        .topbar-avatar {
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            background: var(--teal);
+            color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        .admin-content {
+            padding: 2rem;
+            flex: 1;
+        }
+
+        /* ── Global admin table styles ── */
+        .table {
+            background: #fff;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(26,46,68,0.07);
+        }
+
+        .table thead th {
+            background: var(--navy);
+            color: var(--cream);
+            font-family: 'Syne', sans-serif;
+            font-weight: 600;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            border: none;
+            padding: 0.9rem 1rem;
+        }
+
+        .table tbody tr {
+            border-bottom: 1px solid #f0ebe2;
+            transition: background 0.15s;
+        }
+
+        .table tbody tr:hover { background: #faf7f3; }
+        .table tbody td { padding: 0.85rem 1rem; vertical-align: middle; font-size: 0.92rem; border: none; }
+
+        /* ── Global admin form styles ── */
+        .admin-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 2px 16px rgba(26,46,68,0.08);
+            max-width: 680px;
+        }
+
+        .form-label {
+            font-family: 'Syne', sans-serif;
+            font-weight: 600;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--navy);
+            margin-bottom: 0.4rem;
+        }
+
+        .form-control, .form-select {
+            border: 2px solid #e8e2d8;
+            border-radius: 10px;
+            padding: 0.65rem 0.9rem;
+            font-size: 0.93rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background: var(--cream);
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px rgba(42,157,143,0.15);
+            background: #fff;
+            outline: none;
+        }
+
+        /* ── Buttons ── */
+        .btn-teal {
+            background: var(--teal);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 0.6rem 1.4rem;
+            font-family: 'Syne', sans-serif;
+            font-weight: 600;
+            font-size: 0.88rem;
+            transition: background 0.2s, transform 0.15s;
+        }
+        .btn-teal:hover { background: var(--teal-dark); color: #fff; transform: translateY(-1px); }
+
+        .btn-navy {
+            background: var(--navy);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 0.6rem 1.4rem;
+            font-family: 'Syne', sans-serif;
+            font-weight: 600;
+            font-size: 0.88rem;
+            transition: background 0.2s;
+        }
+        .btn-navy:hover { background: var(--navy-light); color: #fff; }
+
+        .btn-outline-danger {
+            border-radius: 10px;
+            font-size: 0.85rem;
+            padding: 0.45rem 1rem;
+        }
+
+        /* action links in tables */
+        .table-actions a, .table-actions button {
+            font-size: 0.82rem;
+            margin-right: 4px;
+        }
+
+        /* ── Alert / validation ── */
+        .text-danger { font-size: 0.82rem; }
+
+        @@media (max-width: 768px) {
+            .admin-sidebar { width: 100%; min-height: auto; position: relative; }
+            .admin-main { margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-label">⚡ Hamzah</div>
+            <div class="brand-sub">Admin Panel</div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-section-label">Overview</div>
+            <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Admin" && ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "active" : "")"
+               asp-controller="Admin" asp-action="Index">
+                <i class="bi bi-grid-1x2"></i> Dashboard
+            </a>
+
+            <div class="nav-section-label">Content</div>
+            <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "AdminProjects" ? "active" : "")"
+               asp-controller="Projects" asp-action="Index">
+                <i class="bi bi-folder2-open"></i> Projects
+            </a>
+            <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "AdminSkills" ? "active" : "")"
+               asp-controller="Skills" asp-action="Index">
+                <i class="bi bi-bar-chart-line"></i> Skills
+            </a>
+
+            <div class="nav-section-label">Inbox</div>
+            <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "AdminMessages" ? "active" : "")"
+               asp-controller="Messages" asp-action="Index">
+                <i class="bi bi-envelope"></i> Messages
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a asp-controller="Home" asp-action="Index">
+                <i class="bi bi-arrow-left-circle"></i> Back to Portfolio
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="admin-main">
+        <div class="admin-topbar">
+            <div class="page-title">@ViewData["Title"]</div>
+            <div class="topbar-user">
+                <div class="topbar-avatar">H</div>
+                @User.Identity?.Name
+            </div>
+        </div>
+
+        <div class="admin-content">
+            @RenderBody()
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
