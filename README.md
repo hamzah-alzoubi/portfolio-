@@ -58,7 +58,7 @@ The project showcases my skills, projects, and experience in web development thr
 ## 📧 Contact
 
 * Name: Hamzah Alzoubi
-* Email: (your email here)
+* Email: itshamzah99@gmail.com
 * GitHub: https://github.com/hamzah-alzoubi
 
 ---
